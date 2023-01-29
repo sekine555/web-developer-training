@@ -409,14 +409,19 @@ content-type: application/json
 - ログイン画面からログイン API をコール
   - 認証失敗（メールアドレス or パスワード誤り）の場合には、401 エラー返却
     - システムでハンドリングしているエラーの準正常系であるため、当該画面に留まってエラーメッセージを表示している
+
+https://user-images.githubusercontent.com/106978578/215303293-ccaecc9c-3bde-42ef-88fc-cf29ac7870c9.mov
+
   - 認証成功
     - API サーバーにて JWT トークンを生成し、トークンを Cookie に Http Only で保存している
+
 - 認証が必要な API をコール
   - 認証トークンを Cookie による送受信方式としているため、クライアントからは Cookie を送信するのみであり、API サーバーで Cookie からトークンを取り出している（Http Only としているため、クライアントの JavaScript からはアクセスさせない）
 
+https://user-images.githubusercontent.com/106978578/215303316-b1057db3-4760-437e-987c-dc2f876498ba.mov
+
 <br />
 
-- ![FE⇄BEのAPIコールサンプル](/image/apicall-sample.gif)
 
 <br />
 
