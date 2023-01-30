@@ -377,7 +377,7 @@ content-type: application/json
 
 ### 概要
 
-- Web アプリケーションでフロントエンド、バックエンド(データベースを含む)が処理を行うための基礎部分を担当する
+- Web アプリケーションでフロントエンド、バックエンド（データベースを含む）が処理を行うための基礎部分を担当する
 
 - 昨今はクラウドサービスを活用したインフラストラクチャの開発が主流となっている
 
@@ -411,19 +411,17 @@ content-type: application/json
 
   > 引用: 「https://aws.amazon.com/jp/cdp/ec-container/」「AWS ソリューション構成例 - コンテナを利用した Web サービス」より
 
-  <br />
+  上記のように EC2（Azure:VM、GCP:ComputeEngine）のようにサーバを活用したアーキテクトや、ECS(Azure:ContainerInstance、GCP:KubernetesEngine)のように Docker を使用したコンテナオーケストレーションサービスを活用したアーキテクトが存在する
 
-  上記のように EC2(Azure:VM、GCP:ComputeEngine)のようにサーバを活用したアーキテクトや、ECS(Azure:ContainerInstance、GCP:KubernetesEngine)のように Docker を使用したコンテナオーケストレーションサービスを活用したアーキテクトが存在する
+### IaC（Infrastructure as Code）
 
-  <br />
+- IaCを用いて、インフラの構成管理・機械処理可能な定義ファイルの設定・プロビジョニングを自動化するプロセスもデファクトとなりつつある
 
-- また、IaC（Infrastructure as Code）を用いて、インフラの構成管理・機械処理可能な定義ファイルの設定・プロビジョニングを自動化するプロセスもデファクトとなりつつある
+  項目 1: 代表的な IaC
 
-項目 1: 代表的な IaC
-
-- [Terraform](https://www.terraform.io/)
-- [Ansible](https://www.ansible.com/)
-- [Chef](https://www.chef.io/products/chef-infra)
+  - [Terraform](https://www.terraform.io/)
+  - [Ansible](https://www.ansible.com/)
+  - [Chef](https://www.chef.io/products/chef-infra)
 
 - アプリケーション開発と同様に MS が提供する[VSCode](https://azure.microsoft.com/ja-jp/products/visual-studio-code)を使用することがデファクトとなっており、定義ファイルを書いたら、確認コマンドを発行し、開発を行う
 
