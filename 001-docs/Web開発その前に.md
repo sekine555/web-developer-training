@@ -127,7 +127,7 @@
 表 2：代表的なライブラリとフレームワーク
 | 言語 | フレームワーク | ORM |
 | ---------------- | --------- |--------- |
-| C# | ？ | ？ |
+| C# | .NET Framework / ASP.NET | ？ |
 | PHP | Laravel | Eloquent |
 | Ruby | Ruby on Rails | Active Record |
 | Python | Django REST framework / Flask | |
@@ -274,28 +274,28 @@ content-type: application/json
   | 500 番台 | サーバー起因のエラーレスポンス |
 
   **200 番台**
-  | HTTP ステータスコード | 内容 |
+  | HTTP ステータスコード | 説明 |
   | ---- | ---- |
-  | 200 | OK リクエスト成功 |
-  | 201 | Created 作成されたリソースのデータを返す |
-  | 204 | No Content 登録したが、返却するレスポンスがない場合に返す |
+  | 200 OK | リクエスト成功 |
+  | 201 Created | 作成されたリソースのデータを返す |
+  | 204 No Content | 登録したが、返却するレスポンスがない場合に返す |
 
   **400 番台**
-  | HTTP ステータスコード | 内容 |
+  | HTTP ステータスコード | 説明 |
   | ---- | ---- |
-  | 400 | Bad Request リクエストが不正。バリデーションエラー時に使用する |
-  | 401 | Unauthorized 認証失敗。ログインできない場合に使用する |
-  | 403 | Forbidden アクセス拒否。権限がない場合（API 認可など）に使用する |
-  | 404 | Not Found リクエストがあったリソースがない |
-  | 409 | Conflict リソースの競合。排他制御エラー時に使用する |
+  | 400 Bad Request | リクエストが不正。バリデーションエラー時に使用する |
+  | 401 Unauthorized | 認証失敗。ログインできない場合に使用する |
+  | 403 Forbidden | アクセス拒否。権限がない場合（API 認可など）に使用する |
+  | 404 Not Found | リクエストがあったリソースがない |
+  | 409 Conflict | リソースの競合。排他制御エラー時に使用する |
 
   **500 番台**
-  | HTTP ステータスコード | 内容 |
+  | HTTP ステータスコード | 説明 |
   | ---- | ---- |
-  | 500 | Internal Server Error サーバー内部でのエラー |
-  | 502 | Bad Gateway 不正なゲートウェイ |
-  | 503 | Service Unavailable サービス利用不可。システムメンテナンス時に使用する |
-  | 504 | Gateway Timeout タイムアウト。サーバーからレスポンスがなくタイムアウトした場合に使用する |
+  | 500 Internal Server Error | サーバー内部でのエラー |
+  | 502 Bad Gateway | 不正なゲートウェイ |
+  | 503 Service Unavailable | サービス利用不可。システムメンテナンス時に使用する |
+  | 504 Gateway Timeout | タイムアウト。サーバーからレスポンスがなくタイムアウトした場合に使用する |
 
 <br />
 
@@ -319,8 +319,12 @@ content-type: application/json
 <br />
 
 - RDBMS のテーブル設計
+
   - 1 対 1、1 対多、多対多のテーブル例
-  - ![image](./image/rdbms.png)
+    ![image](./image/rdbms.png)
+
+  <br />
+
   - テーブルのキーは、以下の 2 ついずれかを設定する（アプリケーションの規模や仕様、設計者の好みによって変わる）
     - サロゲートキー
       - 業務上は意味を持つ値ではないが、システム的に一意な値とすべくオートインクリメントなどで連番を振り、PK としているテーブルの PK のこと
@@ -412,16 +416,14 @@ content-type: application/json
 
 https://user-images.githubusercontent.com/106978578/215303293-ccaecc9c-3bde-42ef-88fc-cf29ac7870c9.mov
 
-  - 認証成功
-    - API サーバーにて JWT トークンを生成し、トークンを Cookie に Http Only で保存している
+- 認証成功
+
+  - API サーバーにて JWT トークンを生成し、トークンを Cookie に Http Only で保存している
 
 - 認証が必要な API をコール
   - 認証トークンを Cookie による送受信方式としているため、クライアントからは Cookie を送信するのみであり、API サーバーで Cookie からトークンを取り出している（Http Only としているため、クライアントの JavaScript からはアクセスさせない）
 
 https://user-images.githubusercontent.com/106978578/215303316-b1057db3-4760-437e-987c-dc2f876498ba.mov
-
-<br />
-
 
 <br />
 
@@ -432,7 +434,7 @@ https://user-images.githubusercontent.com/106978578/215303316-b1057db3-4760-437e
 - 情報過多の時代であるため、収集した情報をうまく分別する必要がある
 - 筆者自身は主に Twitter でエンジニアや CEO/CTO をフォローしたり、connpass で興味あるイベントに参加をすることで最新・トレンドの情報を追うこと及び Web 界隈のエンジニア市場の状況も把握するようにしている（自社の HR をする上で把握が必要）
 
-- Twitter
-- [TechFeed](https://techfeed.io/)
-- [connpass](https://connpass.com/)
-- [Doorkeeper](https://www.doorkeeper.jp/)
+  - Twitter
+  - [TechFeed](https://techfeed.io/)
+  - [connpass](https://connpass.com/)
+  - [Doorkeeper](https://www.doorkeeper.jp/)
