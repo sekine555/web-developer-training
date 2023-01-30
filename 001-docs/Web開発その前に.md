@@ -23,6 +23,7 @@
   - [3.3 データベース](#33-データベース)
     - [概要](#概要-2)
   - [3.4 インフラ](#34-インフラ)
+    - [概要](#概要-3)
 - [4. バリデーションについて](#4-バリデーションについて)
   - [4.1 フロントエンドのバリデーション](#41-フロントエンドのバリデーション)
   - [4.2 バックエンドのバリデーション](#42-バックエンドのバリデーション)
@@ -374,7 +375,57 @@ content-type: application/json
 
 ## 3.4 インフラ
 
-- TODO（Docker とか）
+### 概要
+
+- Web アプリケーションでフロントエンド、バックエンド(データベースを含む)が処理を行うための基礎部分を担当する
+
+- 昨今はクラウドサービスを活用したインフラストラクチャの開発が主流となっている
+
+<br />
+
+表 1：代表的なクラウドとサービス
+
+| クラウド | サービス名                                |
+| -------- | ----------------------------------------- |
+| AWS      | EC2、ECS、RDS                             |
+| Azure    | VM、ContainerInstance、SQLDatabase        |
+| GCP      | ComputeEngine、KubernetesEngine、CloudSQL |
+
+<br />
+
+- 三層 WEB アプリケーションでのクラウドサービスを活用した構成の事例を記載する
+
+- 本書では、[GoogleTrends](trends.google.co.jp)で人気度の動向が高く遷移している AWS の構成を例として紹介する
+
+  図 1：サーバを用いたアーキテクト
+
+  ![image](https://d1.awsstatic.com/icons/jp/cdp/renewal/diagram_ec_scaleup_v3.ccf9b853b014b39a7c994e348cef47be498d8d26.png)
+
+  > 「https://aws.amazon.com/jp/cdp/ec-scaleup/」「AWS ソリューション構成例 - 負荷状況に応じてスケールする動的 Web サイト」より
+
+  <br />
+
+  図 2：サーバレスアーキテクト
+
+  ![image](https://d1.awsstatic.com/icons/jp/cdp/renewal/diagram_ec-container_v2.85a0ad9ebf4bd95e18df84db4b274ba3b36f8586.png)
+
+  > 引用: 「https://aws.amazon.com/jp/cdp/ec-container/」「AWS ソリューション構成例 - コンテナを利用した Web サービス」より
+
+  <br />
+
+  上記のように EC2(Azure:VM、GCP:ComputeEngine)のようにサーバを活用したアーキテクトや、ECS(Azure:ContainerInstance、GCP:KubernetesEngine)のように Docker を使用したコンテナオーケストレーションサービスを活用したアーキテクトが存在する
+
+  <br />
+
+- また、IaC（Infrastructure as Code）を用いて、インフラの構成管理・機械処理可能な定義ファイルの設定・プロビジョニングを自動化するプロセスもデファクトとなりつつある
+
+項目 1: 代表的な IaC
+
+- [Terraform](https://www.terraform.io/)
+- [Ansible](https://www.ansible.com/)
+- [Chef](https://www.chef.io/products/chef-infra)
+
+- アプリケーション開発と同様に MS が提供する[VSCode](https://azure.microsoft.com/ja-jp/products/visual-studio-code)を使用することがデファクトとなっており、定義ファイルを書いたら、確認コマンドを発行し、開発を行う
 
 <br />
 
