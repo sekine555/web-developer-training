@@ -38,6 +38,7 @@
 - [5. 実際の開発](#5-実際の開発)
 - [その他](#その他)
   - [情報収集について](#情報収集について)
+  - [読んだ良かった書籍](#読んだ良かった書籍)
 
 <!-- /TOC -->
 
@@ -545,3 +546,14 @@ https://user-images.githubusercontent.com/106978578/215303316-b1057db3-4760-437e
   - [connpass](https://connpass.com/)
   - [Doorkeeper](https://www.doorkeeper.jp/)
   - Podcast もおすすめである
+  - 書籍 / 技術誌
+
+<br />
+
+## 読んだ良かった書籍
+
+- [リーダブルコード](https://www.oreilly.co.jp/books/9784873115658/)
+- [スッキリわかる Java 入門 第 3 版](https://book.impress.co.jp/books/1119101083)
+- [ドメイン駆動設計入門](https://www.shoeisha.co.jp/book/detail/9784798151687)
+- [プロを目指す人のための TypeScript 入門](https://gihyo.jp/book/2022/978-4-297-12747-3)
+- GIVE & TAKE「与える人」こそ成功する時代
