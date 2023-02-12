@@ -1,3 +1,3 @@
 <template>
-  <p>メインページ</p>
+  <p>Main Page</p>
 </template>
