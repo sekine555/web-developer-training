@@ -1,3 +1,3 @@
 <template>
-  <h1>メインページ</h1>
+  <h1 class="text-3xl font-bold underline text-red-500">メインページ</h1>
 </template>
