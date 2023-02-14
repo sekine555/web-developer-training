@@ -157,6 +157,7 @@
 #### SG
 
 - Static Generation
+
   - 以前は、SSG（Static Site Generating）と呼ばれていた
   - 事前に静的な HTML を作成してしまおうという仕組み
   - Next.js では、ビルド時に SG の HTML を生成する機構が入っており、生成した HTML は Web サーバーでキャッシュしている
@@ -165,6 +166,7 @@
   - ほとんど変更されないページ（ブログ記事や商品詳細など）を SG にすることがある
   - 逆にリアルタイムで更新ができない
   - SG 図解
+
     ![image](./image/SG.png)
     <br />
 
