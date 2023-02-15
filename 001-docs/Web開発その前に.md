@@ -513,40 +513,65 @@ content-type: application/json
 ### 概要
 
 - Web アプリケーションでフロントエンド、バックエンド（データベースを含む）が処理を行うための基礎部分を担当する
-
 - 昨今はクラウドサービスを活用したインフラストラクチャの開発が主流となっている
 
-<br />
+図1: 利用形態の歴史的変換
 
-表 1：代表的なクラウドとサービス
+![image](https://blogs.itmedia.co.jp/itsolutionjuku/assets_c/2017/10/cb24cd295967c25077047378e4b93704560eff32-thumb-600xauto-25558.png)
 
-| クラウド | サービス名                                |
-| -------- | ----------------------------------------- |
-| AWS      | EC2、ECS、RDS                             |
-| Azure    | VM、ContainerInstance、SQLDatabase        |
-| GCP      | ComputeEngine、KubernetesEngine、CloudSQL |
+> 引用: 「https://blogs.itmedia.co.jp/itsolutionjuku/2017/10/1it_1.html」「【図解】コレ1枚でわかるITインフラの歴史的変遷」より
 
-<br />
+筆者は2015年以降にIT業界に足を踏み入れたため、現在の利用形態以外の詳細は分からないため、本書での解説が行わない
 
-- 三層 WEB アプリケーションでのクラウドサービスを活用した構成の事例を記載する
+最近は自動運転技術などの注目に伴い、エッジコンピューティング技術が巷を賑わせている
 
-- 本書では、[GoogleTrends](trends.google.co.jp)で人気度の動向が高く遷移している AWS の構成を例として紹介する
+表 1：代表的なクラウド
 
-  図 1：サーバを用いたアーキテクト
+| クラウド |
+| -------- |
+| AWS      |
+| Azure    |
+| GCP      |
+
+### 構築
+
+- 一般的な Web アプリ基盤は構築は、ウォーターフォール型開発モデルに沿ってプロジェクトが進められる、本書では「構築」フェーズに焦点を置く
+
+- 三層 WEB アプリケーションでのクラウドサービスを活用した汎用的構成の事例を記載する
+
+  図 2：サーバを用いたアーキテクト
 
   ![image](https://d1.awsstatic.com/icons/jp/cdp/renewal/diagram_ec_scaleup_v3.ccf9b853b014b39a7c994e348cef47be498d8d26.png)
 
-  > 「https://aws.amazon.com/jp/cdp/ec-scaleup/」「AWS ソリューション構成例 - 負荷状況に応じてスケールする動的 Web サイト」より
+  > 引用: 「https://aws.amazon.com/jp/cdp/ec-scaleup/」「AWS ソリューション構成例 - 負荷状況に応じてスケールする動的 Web サイト」より
 
-  <br />
-
-  図 2：サーバレスアーキテクト
+  図 3：サーバレスアーキテクト
 
   ![image](https://d1.awsstatic.com/icons/jp/cdp/renewal/diagram_ec-container_v2.85a0ad9ebf4bd95e18df84db4b274ba3b36f8586.png)
 
   > 引用: 「https://aws.amazon.com/jp/cdp/ec-container/」「AWS ソリューション構成例 - コンテナを利用した Web サービス」より
 
-  上記のように EC2（Azure:VM、GCP:ComputeEngine）のようにサーバを活用したアーキテクトや、ECS(Azure:ContainerInstance、GCP:KubernetesEngine)のように Docker を使用したコンテナオーケストレーションサービスを活用したアーキテクトが存在する
+  表2: 各サービス名称と役割
+
+  | サービス名           | 役割                                                         | 類似サービス(Azure)                     | 類似サービス(GCP)                    |
+  | -------------------- | ------------------------------------------------------------ | --------------------------------------- | ------------------------------------ |
+  | CloudFront           | 利用者の近くからコンテンツ(静的ページ、画像ファイルなど)を配信してくれるサービス<br />前章にて登場したSGとCDNという意味で同じとなる。 | Azure CDN                               | Cloud CDN                            |
+  | Certiificate Manager | 暗号化通信を行うための証明書を発行するサービス<br />前章にて「HTTP」というプロトコルが登場したが、その通信を暗号(HTTPS)化するために必要 | App Service Certificates                | Certificate Manager                  |
+  | Region               | クラウドサービスの仮想化元の物理データセンターの配置場所<br />単位：国 | Geo,Region                              | Region                               |
+  | Availability Zones   | クラウドサービスが仮想化元の物理データセンターの配置場所<br />単位：都道府県 | Availability Zones                      | Zone                                 |
+  | VPC                  | 仮想ネットワークサービス                                     | VNet                                    | ー(グローバル)                       |
+  | PublicSubnet         | 公開ネットワークからアクセス**可能**なセグメント<br />ロードバランサーサービスなどがこの空間に配置される | Subnet                                  | Subnet                               |
+  | PrivateSubnet        | 公開ネットワーク→サーバ(コンテナ)へアクセス**不可能**可能なセグメント<br /><br />サーバ(コンテナ)→公開ネットワークへはアクセス**可能**<br />サーバ(コンテナ)などがこの空間に配置される | 同上                                    | 同上                                 |
+  | (SecureSubnet)       | (公開ネットワーク⇔サーバ(コンテナ)がアクセス**不可能**なセグメント<br />DBなどがこの空間に配置される) | 同上                                    | 同上                                 |
+  | NatGateway           | PrivateSubnetからのネットワークアクセスを可能とするためのサービス<br />主に各リポジトリへのアップデート目的な通信が多い | 同上                                    | 同上                                 |
+  | S3                   | ストレージサービス<br />コンテンツ(画像ファイルなど)が保管される | Azure Blob                              | Cloud Storage                        |
+  | EC2                  | OSが入っているサーバを提供してくれるサービス<br />フロントエンド、バックエンドなどの機能が配置される<br />OSのみの為、必要となるMWやSWのインストールが必要となる | Azure Virtual Machines                  | Compute Engine                       |
+  | ECR                  | 各DockerImageの格納先リポジトリ                              | Azure Container Registry                | Container Registry                   |
+  | ECS、EKS             | コンテナオーケストレーションサービス                         | Azure Kubernetes Service<br />Azure Arc | Google Kubernetes Engine<br />Anthos |
+  | Fargate              | サーバレスでコンテナを実行できるサービス<br />EC2と比べ、OSの運用保守が不要であったり、管理コストが安い | Azure Container Instances               | -                                    |
+  | RDS                  | RDBMSサービス<br />DBなどの機能が配置される                  | Azure Database                          | Cloud SQL                            |
+  | ElasticCache         | インメモリ型キャッシングサービス<br />セッション管理などを行う | Azure Cache                             | Memorystore                          |
+  | CloudWatch           | 監視サービス<br />EC2、RDSなどのCPU、メモリ、ディスク監視やアプリケーションログ監視などを行う | Azure Monitor                           | Cloud Monitoring                     |
 
 ### IaC（Infrastructure as Code）
 
@@ -558,7 +583,11 @@ content-type: application/json
   - [Ansible](https://www.ansible.com/)
   - [Chef](https://www.chef.io/products/chef-infra)
 
-- アプリケーション開発と同様に MS が提供する[VSCode](https://azure.microsoft.com/ja-jp/products/visual-studio-code)を使用することがデファクトとなっており、定義ファイルを書いたら、確認コマンドを発行し、開発を行う
+- 実開発時には 本番環境 STG環境 開発環境のようなスリーランドスケープの環境にて開発を行うことが多い。そのため、初期の段階でも環境の複製を容易に行うために用いられる
+
+- また、コンソールからの手作業によるヒューマンエラーの防止、複数インフラの管理、Gitなどのバージョン管理ツールと併用したインフラのバージョン管理のため用いられる
+
+- なお、アプリケーション開発と同様に MS が提供する[VSCode](https://azure.microsoft.com/ja-jp/products/visual-studio-code)を使用することがデファクトとなっており、定義ファイルを書いたら、確認コマンドを発行し、開発を行う
 
 <br />
 
