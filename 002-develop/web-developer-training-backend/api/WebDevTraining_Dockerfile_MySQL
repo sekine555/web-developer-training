@@ -1,0 +1,5 @@
+FROM mysql:8.0
+
+ARG LOCAL_DDL_DML_DIR="./docker/db/mysql/sql"
+
+COPY ${LOCAL_DDL_DML_DIR}/ /docker-entrypoint-initdb.d/
