@@ -1,1 +1,1 @@
-GET     /hello                      controller.SampleController.hello
+GET     /api/v1/genre               controller.genre.GenreController.getAllGenre
