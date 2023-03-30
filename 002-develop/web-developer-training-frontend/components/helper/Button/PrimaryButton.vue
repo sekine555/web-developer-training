@@ -10,7 +10,8 @@ const { onClick, attributes } = defineProps<{
 <template>
   <button
     v-bind="attributes"
-    :on-click="onClick"
+    v-on:click="onClick"
+    type="button"
     class="items-center w-full h-[45px] text-center rounded text-white bg-primary hover:opacity-90 disabled:opacity-30"
   >
     <slot />

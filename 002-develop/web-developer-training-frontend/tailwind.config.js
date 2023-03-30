@@ -13,6 +13,9 @@ module.exports = {
       colors: {
         primary: "#616161",
       },
+      aria: {
+        selected: 'selected="true"',
+      },
     },
   },
   plugins: [],
