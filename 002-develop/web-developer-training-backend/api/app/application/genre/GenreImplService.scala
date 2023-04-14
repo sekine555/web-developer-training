@@ -5,7 +5,7 @@ import scalikejdbc._
 
 import javax.inject.Inject
 
-class GenreImplService @Inject()(genreRepository: GenreRepository) extends GenreService {
+class GenreImplService @Inject() (genreRepository: GenreRepository) extends GenreService {
   override def getGenres: List[GenreDto] = {
     DB localTx { implicit session =>
       val genres = genreRepository.findAll()

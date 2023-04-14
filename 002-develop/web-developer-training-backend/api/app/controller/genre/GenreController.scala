@@ -4,10 +4,11 @@ import application.genre.GenreService
 import play.api.mvc._
 import play.api.libs.json._
 
-import javax.inject.{Inject, Singleton}
+import javax.inject.{ Inject, Singleton }
 
 @Singleton
-class GenreController @Inject()(val cc: ControllerComponents, genreService: GenreService) extends AbstractController(cc) {
+class GenreController @Inject() (val cc: ControllerComponents, genreService: GenreService)
+    extends AbstractController(cc) {
   def getAllGenre() = Action {
     val genreDtoList = genreService.getGenres
     val genreResponse = genreDtoList.map(genre => GenreResponse(genre.id.toInt, genre.genreName))
