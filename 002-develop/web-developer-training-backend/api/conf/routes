@@ -1,1 +1,2 @@
+# injected controller
 GET     /api/v1/genre               controller.genre.GenreController.getAllGenre
