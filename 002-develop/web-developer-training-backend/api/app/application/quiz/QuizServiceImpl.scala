@@ -8,7 +8,17 @@ import javax.inject.Inject
 class QuizServiceImpl @Inject() (val quizRepository: QuizRepository) extends QuizService {
   override def getQuizListByGenreId(genreId: Long): List[QuizDto] = {
     DB localTx { implicit session =>
-      quizRepository.findByGenreId(genreId).map(quiz => QuizDto(quiz.id, quiz.genreId, quiz.question))
+      quizRepository
+        .findByGenreId(genreId)
+        .map(
+          quiz =>
+            QuizDto(
+              quiz.id,
+              quiz.genreId,
+              quiz.question,
+              quiz.options.map(option => QuizOptionDto(option.id, option.content))
+            )
+        )
     }
   }
 }

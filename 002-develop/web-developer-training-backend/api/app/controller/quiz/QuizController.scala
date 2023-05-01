@@ -13,7 +13,15 @@ class QuizController @Inject() (val cc: ControllerComponents, val quizService: Q
       Json.toJson(
         quizService
           .getQuizListByGenreId(genreId)
-          .map(quiz => QuizResponse(quiz.id.toInt, quiz.genreId.toInt, quiz.question))
+          .map(
+            quiz =>
+              QuizResponse(
+                quiz.id.toInt,
+                quiz.genreId.toInt,
+                quiz.question,
+                quiz.options.map(option => QuizOptionResponse(option.id.toInt, option.option))
+              )
+          )
       )
     )
   }
