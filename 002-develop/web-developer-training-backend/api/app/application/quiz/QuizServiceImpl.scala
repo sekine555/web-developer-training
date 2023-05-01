@@ -28,4 +28,11 @@ class QuizServiceImpl @Inject() (val quizRepository: QuizRepository) extends Qui
       QuizAnswerDto(quizAnswer.isCorrect, quizAnswer.explanation)
     }
   }
+
+  override def getQuizAnswerByQuizId(quizId: Long): QuizExplanationDto = {
+    DB localTx { implicit session =>
+      val quizExplanation = quizRepository.findAnswerByQuizId(quizId)
+      QuizExplanationDto(quizExplanation.correctAnswerId, quizExplanation.explanation)
+    }
+  }
 }

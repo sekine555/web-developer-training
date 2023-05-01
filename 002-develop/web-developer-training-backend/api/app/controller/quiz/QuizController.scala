@@ -44,4 +44,16 @@ class QuizController @Inject() (val cc: ControllerComponents, val quizService: Q
         }
       )
   }
+
+  def getQuizAnswerByQuizId(quizId: Long) = Action {
+    val quizExplanation = quizService.getQuizAnswerByQuizId(quizId)
+    Ok(
+      Json.toJson(
+        QuizExplanationResponse(
+          quizExplanation.correctAnswerId.toInt,
+          quizExplanation.explanation
+        )
+      )
+    )
+  }
 }

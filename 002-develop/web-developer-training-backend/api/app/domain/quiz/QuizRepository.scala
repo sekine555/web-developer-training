@@ -8,4 +8,5 @@ import scalikejdbc.DBSession
 trait QuizRepository {
   def findByGenreId(genreId: Long)(implicit session: DBSession): List[Quiz]
   def verifyAnswer(quizId: Long, quizChoiceId: Long)(implicit session: DBSession): QuizAnswer
+  def findAnswerByQuizId(quizId: Long)(implicit session: DBSession): QuizExplanation
 }
