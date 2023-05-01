@@ -1,3 +1,5 @@
 # injected controller
-GET     /api/v1/genre               controller.genre.GenreController.getAllGenre
-GET     /api/v1/quiz/:genreId       controller.quiz.QuizController.getQuizListByGenreId(genreId: Long)
+GET     /api/v1/genre                       controller.genre.GenreController.getAllGenre
+GET     /api/v1/quiz/:genreId               controller.quiz.QuizController.getQuizListByGenreId(genreId: Long)
+POST    /api/v1/quiz/answer                 controller.quiz.QuizController.verifyAnswer
+GET     /api/v1/quiz/:quizId/explanation    controller.quiz.QuizController.getQuizAnswerByQuizId(quizId: Long)

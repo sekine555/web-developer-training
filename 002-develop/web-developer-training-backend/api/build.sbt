@@ -10,7 +10,6 @@ scalaVersion := "2.13.10"
 libraryDependencies += guice
 libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "5.0.0" % Test
 
-
 val scalikeJDBCV = "4.0.0"
 libraryDependencies ++= Seq(
   "org.scalikejdbc" %% "scalikejdbc" % scalikeJDBCV,

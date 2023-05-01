@@ -1,6 +1,6 @@
 package infrastructure.quiz
 
-import domain.quiz.{ Quiz, QuizChoice, QuizRepository }
+import domain.quiz.{ Quiz, QuizAnswer, QuizExplanation, QuizRepository }
 import scalikejdbc._
 
 class QuizRepositoryImpl extends QuizRepository {
@@ -35,5 +35,45 @@ class QuizRepositoryImpl extends QuizRepository {
       .toList
 
     quizzesWithChoices
+  }
+
+  override def verifyAnswer(quizId: Long, quizChoiceId: Long)(implicit session: DBSession): QuizAnswer = {
+    val qc = QuizChoiceEntity.syntax("qc")
+
+    val quizChoiceEntityOpt = withSQL {
+      select
+        .from(QuizChoiceEntity as qc)
+        .where(
+          sqls
+            .eq(qc.quizId, quizId)
+            .and
+            .eq(qc.id, quizChoiceId)
+        )
+    }.map(QuizChoiceEntity(qc.resultName)).single.apply()
+
+    quizChoiceEntityOpt match {
+      case Some(quizChoiceEntity) => QuizAnswer.build(quizChoiceEntity.isAnswer, quizChoiceEntity.explanation)
+      case None                   => throw new IllegalArgumentException("Quiz choice not found.")
+    }
+  }
+
+  override def findAnswerByQuizId(quizId: Long)(implicit session: DBSession): QuizExplanation = {
+    val qc = QuizChoiceEntity.syntax("qc")
+
+    val quizChoiceEntityOpt = withSQL {
+      select
+        .from(QuizChoiceEntity as qc)
+        .where(
+          sqls
+            .eq(qc.quizId, quizId)
+            .and
+            .eq(qc.isAnswer, true)
+        )
+    }.map(QuizChoiceEntity(qc.resultName)).single.apply()
+
+    quizChoiceEntityOpt match {
+      case Some(quizChoiceEntity) => QuizExplanation.build(quizChoiceEntity.id, quizChoiceEntity.explanation)
+      case None                   => throw new IllegalArgumentException("Quiz choice not found.")
+    }
   }
 }
