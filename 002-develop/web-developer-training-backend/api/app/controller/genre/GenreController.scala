@@ -8,7 +8,7 @@ import play.api.libs.json._
 @Singleton
 class GenreController @Inject() (val cc: ControllerComponents, val genreService: GenreService)
     extends AbstractController(cc) {
-  def getAllGenre() = Action {
+  def getAllGenre = Action {
     Ok(
       Json.toJson(
         genreService.getGenres

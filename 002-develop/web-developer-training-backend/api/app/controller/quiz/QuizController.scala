@@ -25,4 +25,23 @@ class QuizController @Inject() (val cc: ControllerComponents, val quizService: Q
       )
     )
   }
+
+  def verifyAnswer = Action(parse.json) { request =>
+    request.body
+      .validate[QuizAnswerRequest]
+      .fold(
+        errors => BadRequest(Json.obj("message" -> JsError.toJson(errors))),
+        quizAnswerRequest => {
+          val quizAnswer = quizService.verifyAnswer(quizAnswerRequest.quizId, quizAnswerRequest.quizChoiceId)
+          Ok(
+            Json.toJson(
+              QuizAnswerResponse(
+                quizAnswer.isCorrect,
+                quizAnswer.explanation
+              )
+            )
+          )
+        }
+      )
+  }
 }
