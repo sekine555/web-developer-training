@@ -33,6 +33,7 @@ CREATE TABLE quiz_choice
     quiz_id      BIGINT NOT NULL,
     content      VARCHAR(1000) NOT NULL,
     is_answer    TINYINT(1) NOT NULL,
+    explanation  VARCHAR(1000) NULL,
     created_at   TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at   TIMESTAMP NULL,
     PRIMARY KEY (id),
