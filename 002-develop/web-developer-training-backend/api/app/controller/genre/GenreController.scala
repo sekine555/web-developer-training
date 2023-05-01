@@ -12,7 +12,7 @@ class GenreController @Inject() (val cc: ControllerComponents, val genreService:
     Ok(
       Json.toJson(
         genreService.getGenres
-          .map(genre => GenreResponse(genre.id.toInt, genre.genreName))
+          .map(genre => GenreResponse(genre.id.toInt, genre.genreCode, genre.genreName))
       )
     )
   }

@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS genre;
 CREATE TABLE genre
 (
     id           BIGINT NOT NULL AUTO_INCREMENT,
+    genre_code   VARCHAR(10) NOT NULL,
     genre_name   VARCHAR(30) NOT NULL,
     created_at   TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at   TIMESTAMP NULL,

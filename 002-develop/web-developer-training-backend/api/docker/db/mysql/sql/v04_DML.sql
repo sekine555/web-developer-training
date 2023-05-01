@@ -1,7 +1,8 @@
 -- genre
-INSERT INTO genre (id, genre_name) VALUES(1, 'フロントエンド');
-INSERT INTO genre (id, genre_name) VALUES(2, 'バックエンド');
-INSERT INTO genre (id, genre_name) VALUES(3, 'インフラストラクチャー');
+INSERT INTO genre (id, genre_code, genre_name) VALUES(1, 'GENRE_001', 'フロントエンド');
+INSERT INTO genre (id, genre_code, genre_name) VALUES(2, 'GENRE_002', 'バックエンド');
+INSERT INTO genre (id, genre_code, genre_name) VALUES(3, 'GENRE_003', 'インフラ');
+INSERT INTO genre (id, genre_code, genre_name) VALUES(4, 'GENRE_004', 'データベース');
 
 -- quiz
 INSERT INTO quiz (id, genre_id, question) VALUES(1, 1, 'ビルド時にレンダリングをおこない、WebサーバーにHTMLファイルをキャッシュするレンダリングの種類はどれでしょうか？');

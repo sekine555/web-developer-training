@@ -1,4 +1,3 @@
 package application.genre
 
-case class GenreDto(id: Long, genreName: String)
-
+case class GenreDto(id: Long, genreCode: String, genreName: String)
