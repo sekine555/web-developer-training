@@ -7,7 +7,10 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  modules: [
-    '@nuxt/image-edge',
-  ],
+  modules: ["@nuxt/image-edge", "@pinia/nuxt"],
+  runtimeConfig: {
+    public: {
+      apiUrl: "",
+    },
+  },
 });
