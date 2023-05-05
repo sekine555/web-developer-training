@@ -20,12 +20,15 @@ export const useGenreStore = defineStore({
     setGenres(genres: Genre[]) {
       this.genres = genres;
     },
+    /**
+     * ジャンル一覧を取得する
+     */
     async fetchGenres() {
       const nuxtApp = useNuxtApp();
       const httpClient = nuxtApp.$httpClient;
 
       const resp = await httpClient.get<Genre[]>(
-        `http://localhost:9000/api/v1/genre`
+        `${nuxtApp.$config.public.apiUrl}/genre`
       );
       this.setGenres(resp.data);
     },
