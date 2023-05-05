@@ -4,7 +4,7 @@ export default defineNuxtPlugin(() => {
   const httpClient = new HttpClient();
   return {
     provide: {
-      httpClient: httpClient,
+      httpClient,
     },
   };
 });
