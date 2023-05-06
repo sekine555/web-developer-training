@@ -4,10 +4,11 @@ import {
   QuizAnswer,
   QuizAnswerRequest,
   QuizExplanation,
+  QuizList,
 } from "~/types/quiz";
 
 interface QuizState {
-  quizzes: Quiz[];
+  quiz: QuizList;
   isReset: boolean;
 }
 
@@ -15,12 +16,19 @@ export const useQuizStore = defineStore({
   id: "quiz",
   state: () =>
     ({
-      quizzes: [],
+      quiz: {
+        genre: {
+          id: 0,
+          genreCode: "",
+          genreName: "",
+        },
+        quizzes: [],
+      },
       isReset: false,
     } as QuizState),
   getters: {
-    getQuizzes(state) {
-      return state.quizzes;
+    getQuizList(state) {
+      return state.quiz;
     },
     /**
      * クイズ数と正解数を取得する
@@ -28,8 +36,8 @@ export const useQuizStore = defineStore({
      * @returns クイズ数と正解数
      */
     getQuizResult(state) {
-      const quizCount = state.quizzes.length;
-      const correctCount = state.quizzes.filter((quiz) => {
+      const quizCount = state.quiz.quizzes.length;
+      const correctCount = state.quiz.quizzes.filter((quiz) => {
         return quiz.answer.isCorrect;
       }).length;
       return {
@@ -39,8 +47,8 @@ export const useQuizStore = defineStore({
     },
   },
   actions: {
-    setQuizzes(quizzes: Quiz[]) {
-      this.quizzes = quizzes;
+    setQuiz(quiz: QuizList) {
+      this.quiz = quiz;
     },
     setReset(isReset: boolean) {
       this.isReset = isReset;
@@ -49,7 +57,7 @@ export const useQuizStore = defineStore({
      * クイズの解答をクリアする
      */
     clearQuizAnswers() {
-      this.quizzes.forEach((quiz) => {
+      this.quiz.quizzes.forEach((quiz) => {
         quiz.answer = {
           isCorrect: false,
           explanation: null,
@@ -63,7 +71,7 @@ export const useQuizStore = defineStore({
      * @param answer クイズ解答
      */
     updateQuizAnswer(quizId: number, answer: QuizAnswer) {
-      const quiz = this.quizzes.find((quiz) => quiz.id === quizId);
+      const quiz = this.quiz.quizzes.find((quiz) => quiz.id === quizId);
       if (quiz) {
         quiz.answer = answer;
       }
@@ -74,7 +82,7 @@ export const useQuizStore = defineStore({
      * @param explanation クイズ解説
      */
     updateQuizExplanation(quizId: number, explanation: string | null) {
-      const quiz = this.quizzes.find((quiz) => quiz.id === quizId);
+      const quiz = this.quiz.quizzes.find((quiz) => quiz.id === quizId);
       if (quiz) {
         quiz.answer.explanation = explanation;
       }
@@ -83,14 +91,14 @@ export const useQuizStore = defineStore({
      * ジャンルのIDを指定してクイズ一覧を取得する
      * @param genreId ジャンルID
      */
-    async fetchQuizzesByGenreId(genreId: number) {
+    async fetchQuizByGenreId(genreId: number) {
       const nuxtApp = useNuxtApp();
       const httpClient = nuxtApp.$httpClient;
 
-      const resp = await httpClient.get<Quiz[]>(
+      const resp = await httpClient.get<QuizList>(
         `${nuxtApp.$config.public.apiUrl}/quiz/${genreId}`
       );
-      this.setQuizzes(resp.data);
+      this.setQuiz(resp.data);
     },
     /**
      * クイズの解答を送信する

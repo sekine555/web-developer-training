@@ -1,3 +1,5 @@
+import { Genre } from "./genre";
+
 export interface Option {
   id: number;
   optionNumber: number;
@@ -25,4 +27,9 @@ export interface QuizAnswer {
 export interface QuizExplanation {
   correctAnswerId: number;
   explanation: string;
+}
+
+export interface QuizList {
+  genre: Genre;
+  quizzes: Quiz[];
 }

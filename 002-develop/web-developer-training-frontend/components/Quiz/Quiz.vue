@@ -1,15 +1,7 @@
 <script setup lang="ts">
 import { useQuizStore } from "@/stores/quizStore";
-import { useGenreStore } from "@/stores/genreStore";
-
-type Props = {
-  loading: boolean;
-};
-const { loading } = defineProps<Props>();
 
 const quizStore = useQuizStore();
-const genreStore = useGenreStore();
-
 const router = useRouter();
 
 const quizCount = ref(0);
@@ -72,10 +64,14 @@ const onBackToMenu = () => {
 <template>
   <div>
     <p class="mt-4 ml-6 font-bold text-2xl pb-4 text-center">クイズ</p>
-    <p v-if="!loading" class="text-center font-bold text-sm pb-4">
-      {{ genreStore.getSelectedGenre?.genreName || null }}に関するクイズです！！
+    <p class="text-center font-bold text-sm pb-4">
+      {{ quizStore.quiz.genre.genreName }}に関するクイズです！！
     </p>
-    <div v-for="(quiz, index) in quizStore.quizzes" :key="index" class="mb-6">
+    <div
+      v-for="(quiz, index) in quizStore.quiz.quizzes"
+      :key="index"
+      class="mb-6"
+    >
       <QuizCard :quiz="quiz" />
     </div>
     <div
