@@ -24,9 +24,12 @@ class QuizController @Inject() (
                 quiz.id.toInt,
                 quiz.genreId.toInt,
                 quiz.question,
-                quiz.options.map(
-                  option => QuizOptionResponse(option.id.toInt, option.optionNumber, option.option)
-                ),
+                quiz.options
+                  .map(
+                    option => QuizOptionResponse(option.id.toInt, option.optionNumber, option.option)
+                  )
+                  // 選択肢の昇順にする
+                  .sortBy(_.optionNumber),
                 QuizAnswerResponse(isCorrect = false, explanation = null)
               )
             // quiz.idの昇順にする

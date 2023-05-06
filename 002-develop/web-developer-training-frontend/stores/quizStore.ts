@@ -18,7 +18,7 @@ export const useQuizStore = defineStore({
     ({
       quiz: {
         genre: {
-          id: 0,
+          id: -1,
           genreCode: "",
           genreName: "",
         },

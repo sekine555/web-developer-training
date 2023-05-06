@@ -5,14 +5,26 @@ const quizStore = useQuizStore();
 const route = useRoute();
 const { id } = route.params;
 
+const isLoading = ref(false);
+
 useAsyncData(async () => {
-  if (isNaN(Number(id))) {
-    throw new Error("Invalid ID provided. ID must be a number.");
+  try {
+    isLoading.value = true;
+    if (isNaN(Number(id))) {
+      throw new Error("Invalid ID provided. ID must be a number.");
+    }
+    await quizStore.fetchQuizByGenreId(Number(id));
+  } finally {
+    isLoading.value = false;
   }
-  await quizStore.fetchQuizByGenreId(Number(id));
 });
 </script>
 
 <template>
-  <Quiz />
+  <div v-if="isLoading" class="flex justify-center items-center h-screen">
+    <HelperLoading />
+  </div>
+  <div v-else>
+    <Quiz />
+  </div>
 </template>
