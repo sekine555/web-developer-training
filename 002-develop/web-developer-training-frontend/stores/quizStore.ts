@@ -8,6 +8,7 @@ import {
 
 interface QuizState {
   quizzes: Quiz[];
+  isReset: boolean;
 }
 
 export const useQuizStore = defineStore({
@@ -15,6 +16,7 @@ export const useQuizStore = defineStore({
   state: () =>
     ({
       quizzes: [],
+      isReset: false,
     } as QuizState),
   getters: {
     getQuizzes(state) {
@@ -39,6 +41,21 @@ export const useQuizStore = defineStore({
   actions: {
     setQuizzes(quizzes: Quiz[]) {
       this.quizzes = quizzes;
+    },
+    setReset(isReset: boolean) {
+      this.isReset = isReset;
+    },
+    /**
+     * クイズの解答をクリアする
+     */
+    clearQuizAnswers() {
+      this.quizzes.forEach((quiz) => {
+        quiz.answer = {
+          isCorrect: false,
+          explanation: null,
+        };
+      });
+      this.setReset(true);
     },
     /**
      * クイズの解答を更新する

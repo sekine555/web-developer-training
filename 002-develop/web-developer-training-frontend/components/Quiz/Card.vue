@@ -3,15 +3,30 @@ import { Quiz } from "~~/types/quiz";
 import type { Option } from "./Options.vue";
 import { useQuizStore } from "@/stores/quizStore";
 
-const quizStore = useQuizStore();
-
 type Props = {
   quiz: Quiz;
 };
-
 const { quiz } = defineProps<Props>();
 
+const quizStore = useQuizStore();
+
 const selectedOption = ref<Option>();
+
+const resetState = () => {
+  showAnswer.value = false;
+  showCommentary.value = false;
+  selectedOption.value = undefined;
+};
+
+// クイズのリセットを検知する
+watch(
+  () => quizStore.isReset,
+  (newIsReset) => {
+    if (newIsReset) {
+      resetState();
+    }
+  }
+);
 
 const onClickOption = (option: Option) => {
   showAnswer.value = false;
