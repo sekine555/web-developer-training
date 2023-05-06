@@ -13,4 +13,13 @@ class GenreRepositoryImpl extends GenreRepository {
       .apply()
       .map(genre => Genre.build(genre))
   }
+
+  override def findById(id: Long)(implicit session: DBSession): Option[Genre] = {
+    withSQL {
+      select
+        .from(GenreEntity as g)
+        .where
+        .eq(g.id, id)
+    }.map(GenreEntity(g.resultName)).single.apply().map(genre => Genre.build(genre))
+  }
 }

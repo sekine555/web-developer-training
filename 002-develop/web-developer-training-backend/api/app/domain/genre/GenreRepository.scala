@@ -7,4 +7,5 @@ import scalikejdbc.DBSession
 @ImplementedBy(classOf[GenreRepositoryImpl])
 trait GenreRepository {
   def findAll()(implicit session: DBSession): List[Genre]
+  def findById(id: Long)(implicit session: DBSession): Option[Genre]
 }

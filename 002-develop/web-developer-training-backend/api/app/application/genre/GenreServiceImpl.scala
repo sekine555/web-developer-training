@@ -11,4 +11,10 @@ class GenreServiceImpl @Inject() (val genreRepository: GenreRepository) extends 
       genreRepository.findAll().map(genre => GenreDto(genre.id, genre.genreCode, genre.genreName))
     }
   }
+
+  override def getGenreById(id: Long): Option[GenreDto] = {
+    DB localTx { implicit session =>
+      genreRepository.findById(id).map(genre => GenreDto(genre.id, genre.genreCode, genre.genreName))
+    }
+  }
 }

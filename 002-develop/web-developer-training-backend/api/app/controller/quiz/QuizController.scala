@@ -1,21 +1,26 @@
 package controller.quiz
 
+import application.genre.GenreService
 import application.quiz.QuizService
 import com.google.inject.{ Inject, Singleton }
+import controller.genre.GenreResponse
 import play.api.mvc._
 import play.api.libs.json._
 
 @Singleton
-class QuizController @Inject() (val cc: ControllerComponents, val quizService: QuizService)
-    extends AbstractController(cc) {
+class QuizController @Inject() (
+    val cc: ControllerComponents,
+    val quizService: QuizService,
+    val genreService: GenreService
+) extends AbstractController(cc) {
   def getQuizListByGenreId(genreId: Long) = Action {
-    Ok(
-      Json.toJson(
-        quizService
-          .getQuizListByGenreId(genreId)
+    genreService.getGenreById(genreId) match {
+      case Some(genreDto) =>
+        val quizDtoList = quizService.getQuizListByGenreId(genreId)
+        val quizzes = quizDtoList
           .map(
             quiz =>
-              QuizResponse(
+              Quiz(
                 quiz.id.toInt,
                 quiz.genreId.toInt,
                 quiz.question,
@@ -24,11 +29,18 @@ class QuizController @Inject() (val cc: ControllerComponents, val quizService: Q
                 ),
                 QuizAnswerResponse(isCorrect = false, explanation = null)
               )
+            // quiz.idの昇順にする
           )
-          // quiz.idの昇順にする
           .sortBy(_.id)
-      )
-    )
+
+        val quizResponse = QuizResponse(
+          GenreResponse(genreDto.id.toInt, genreDto.genreCode, genreDto.genreName),
+          quizzes
+        )
+        Ok(Json.toJson(quizResponse))
+
+      case None => NotFound(Json.obj("error" -> s"Genre with ID $genreId not found"))
+    }
   }
 
   def verifyAnswer = Action(parse.json) { request =>
