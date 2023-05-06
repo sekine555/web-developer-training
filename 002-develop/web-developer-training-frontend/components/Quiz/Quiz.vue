@@ -72,11 +72,11 @@ const onBackToMenu = () => {
     <p class="text-center font-bold text-sm pb-4">
       {{ quizStore.quiz.genre.genreName }}に関するクイズです！！
     </p>
-    <div
-      v-for="(quiz, index) in quizStore.quiz.quizzes"
-      :key="index"
-      class="mb-6"
-    >
+    <!-- NOTE: key属性にindexを指定しないこと。指定するとquizzesの中身が変わった場合（つまり、別のgenreIdでクイズを再取得）にindex値が変わらず、
+      再レンダリングされなくなってしまうため。
+      そのため、key属性にはユニークで安定した値を指定する必要がある。
+     -->
+    <div v-for="quiz in quizStore.quiz.quizzes" :key="quiz.id" class="mb-6">
       <QuizCard :quiz="quiz" />
     </div>
     <div
