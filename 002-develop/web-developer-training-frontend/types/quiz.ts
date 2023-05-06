@@ -9,6 +9,7 @@ export interface Quiz {
   genreId: number;
   question: string;
   options: Option[];
+  answer: QuizAnswer;
 }
 
 export interface QuizAnswerRequest {

@@ -1,15 +1,15 @@
 <script setup lang="ts">
+import { Quiz } from "~~/types/quiz";
 import type { Option } from "./Options.vue";
+import { useQuizStore } from "@/stores/quizStore";
+
+const quizStore = useQuizStore();
 
 type Props = {
-  id: number;
-  question: string;
-  options: Option[];
-  answer?: number;
-  commentary?: string;
+  quiz: Quiz;
 };
 
-const { id, question, options, answer, commentary } = defineProps<Props>();
+const { quiz } = defineProps<Props>();
 
 const selectedOption = ref<Option>();
 
@@ -22,15 +22,20 @@ const onClickOption = (option: Option) => {
 const showAnswer = ref(false);
 const showCommentary = ref(false);
 
-const onAnswer = () => {
-  // TODO: 解答するAPIをここに実装
+const onAnswer = async () => {
+  // クイズの解答をするAPIコール
+  await quizStore.postQuizAnswer({
+    quizId: quiz.id,
+    quizChoiceId: selectedOption.value?.id ?? 0,
+  });
 
   showAnswer.value = true;
   showCommentary.value = true;
 };
 
-const onReadCommentary = () => {
-  // TODO: 解説を見るAPIをここに実装
+const onReadCommentary = async () => {
+  // クイズの解説を取得するAPIコール
+  await quizStore.fetchQuizExplanationByQuizId(quiz.id);
 
   showCommentary.value = true;
 };
@@ -41,12 +46,12 @@ const onReadCommentary = () => {
     class="bg-[#f5f5f5] py-4 sm:py-6 px-2 sm:px-16 max-w-2xl sm:mx-auto mx-2"
   >
     <h2 class="sm:text-base text-sm font-bold mb-4">
-      Q{{ id }} {{ question }}
+      Q{{ quiz.id }} {{ quiz.question }}
     </h2>
     <div class="max-w-[400px] mx-auto">
       <div class="mb-6">
         <QuizOptions
-          :options="options"
+          :options="quiz.options"
           :selectedOption="selectedOption"
           :onClick="onClickOption"
         />
@@ -71,13 +76,13 @@ const onReadCommentary = () => {
         v-if="showAnswer"
         class="flex justify-center my-2 sm:text-base text-sm text-[#8a2be2] font-bold"
       >
-        {{ selectedOption?.id === answer ? "正解" : "不正解" }}
+        {{ quiz.answer.isCorrect ? "正解" : "不正解" }}
       </div>
       <p
         v-if="showCommentary"
         class="my-2 sm:text-base text-sm font-bold text-center"
       >
-        {{ commentary }}
+        {{ quiz.answer.explanation }}
       </p>
     </div>
   </section>

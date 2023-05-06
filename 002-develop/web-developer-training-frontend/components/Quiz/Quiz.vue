@@ -6,6 +6,6 @@ const quizStore = useQuizStore();
 
 <template>
   <div v-for="(quiz, index) in quizStore.quizzes" :key="index" class="mb-6">
-    <QuizCard :id="quiz.id" :question="quiz.question" :options="quiz.options" />
+    <QuizCard :quiz="quiz" />
   </div>
 </template>

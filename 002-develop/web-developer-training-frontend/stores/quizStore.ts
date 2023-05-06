@@ -20,10 +20,47 @@ export const useQuizStore = defineStore({
     getQuizzes(state) {
       return state.quizzes;
     },
+    /**
+     * クイズ数と正解数を取得する
+     * @param state
+     * @returns クイズ数と正解数
+     */
+    getQuizResult(state) {
+      const quizCount = state.quizzes.length;
+      const correctCount = state.quizzes.filter((quiz) => {
+        return quiz.answer.isCorrect;
+      }).length;
+      return {
+        quizCount,
+        correctCount,
+      };
+    },
   },
   actions: {
     setQuizzes(quizzes: Quiz[]) {
       this.quizzes = quizzes;
+    },
+    /**
+     * クイズの解答を更新する
+     * @param quizId クイズID
+     * @param answer クイズ解答
+     */
+    updateQuizAnswer(quizId: number, answer: QuizAnswer) {
+      const quiz = this.quizzes.find((quiz) => quiz.id === quizId);
+      if (quiz) {
+        quiz.answer = answer;
+      }
+    },
+    /**
+     * クイズの解説を更新する
+     * @param quizId クイズID
+     * @param explanation クイズ解説
+     */
+    updateQuizExplanation(quizId: number, explanation: string | null) {
+      const quiz = this.quizzes.find((quiz) => quiz.id === quizId);
+      if (quiz) {
+        quiz.answer.explanation = explanation;
+      }
     },
     /**
      * ジャンルのIDを指定してクイズ一覧を取得する
@@ -39,9 +76,9 @@ export const useQuizStore = defineStore({
       this.setQuizzes(resp.data);
     },
     /**
-     * クイズの回答を送信する
-     * @param request クイズ回答リクエスト
-     * @returns クイズ回答
+     * クイズの解答を送信する
+     * @param request クイズ解答リクエスト
+     * @returns クイズ解答
      */
     async postQuizAnswer(request: QuizAnswerRequest): Promise<QuizAnswer> {
       const nuxtApp = useNuxtApp();
@@ -54,7 +91,9 @@ export const useQuizStore = defineStore({
           quizChoiceId: request.quizChoiceId,
         }
       );
-      console.log("resp:", resp.data);
+      // クイズの解答を更新する
+      this.updateQuizAnswer(request.quizId, resp.data);
+
       return resp.data;
     },
     /**
@@ -71,7 +110,9 @@ export const useQuizStore = defineStore({
       const resp = await httpClient.get<QuizExplanation>(
         `${nuxtApp.$config.public.apiUrl}/quiz/${quizId}/explanation`
       );
-      console.log("resp:", resp.data);
+      // クイズの解説を更新する
+      this.updateQuizExplanation(quizId, resp.data.explanation);
+
       return resp.data;
     },
   },
