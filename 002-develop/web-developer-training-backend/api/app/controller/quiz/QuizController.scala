@@ -25,6 +25,8 @@ class QuizController @Inject() (val cc: ControllerComponents, val quizService: Q
                 QuizAnswerResponse(isCorrect = false, explanation = null)
               )
           )
+          // quiz.idの昇順にする
+          .sortBy(_.id)
       )
     )
   }

@@ -17,6 +17,7 @@ class QuizRepositoryImpl extends QuizRepository {
         .on(q.id, qc.quizId)
         .where
         .eq(q.genreId, genreId)
+        .orderBy(q.id.asc)
     }.map(rs => {
         val quizEntity = QuizEntity(q.resultName)(rs)
         val quizChoiceEntity = QuizChoiceEntity(qc.resultName)(rs)
