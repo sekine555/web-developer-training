@@ -46,6 +46,11 @@ const onScoreQuiz = () => {
   correctCount.value = score.correctCount;
   showScore.value = true;
 
+  if (score.quizCount === 0) {
+    scoreComment.value = "クイズがありません";
+    return;
+  }
+
   if (score.correctCount === score.quizCount) {
     scoreComment.value = "全問正解です！！おめでとうございます！！";
   } else {
