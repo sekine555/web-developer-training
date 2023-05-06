@@ -19,7 +19,7 @@ class QuizController @Inject() (val cc: ControllerComponents, val quizService: Q
                 quiz.id.toInt,
                 quiz.genreId.toInt,
                 quiz.question,
-                quiz.options.map(option => QuizOptionResponse(option.id.toInt, option.option))
+                quiz.options.map(option => QuizOptionResponse(option.id.toInt, option.optionNumber, option.option))
               )
           )
       )

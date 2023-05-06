@@ -5,6 +5,7 @@ import infrastructure.quiz.QuizChoiceEntity
 case class QuizChoice private (
     id: Long,
     quizId: Long,
+    optionNumber: Int,
     content: String,
     isAnswer: Boolean,
     explanation: String
@@ -19,6 +20,7 @@ object QuizChoice {
     new QuizChoice(
       quizChoiceEntity.id,
       quizChoiceEntity.quizId,
+      quizChoiceEntity.optionNumber,
       quizChoiceEntity.content,
       quizChoiceEntity.isAnswer,
       quizChoiceEntity.explanation
