@@ -13,9 +13,9 @@ const genreStore = useGenreStore();
         class="flex items-center justify-center gap-4 flex-wrap sm:flex-nowrap"
       >
         <li v-for="(menu, index) in genreStore.genres" :key="index">
-          <a>
+          <nuxt-link :to="`/quiz/${menu.id}`">
             <Icon :name="menu.genreName" :path="getImagePath(menu.genreCode)" />
-          </a>
+          </nuxt-link>
         </li>
       </ul>
     </nav>
