@@ -1,3 +1,3 @@
 package application.quiz
 
-case class QuizOptionDto(id: Long, option: String)
+case class QuizOptionDto(id: Long, optionNumber: Int, option: String)

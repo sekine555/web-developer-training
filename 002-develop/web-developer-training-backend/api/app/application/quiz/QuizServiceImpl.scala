@@ -16,7 +16,7 @@ class QuizServiceImpl @Inject() (val quizRepository: QuizRepository) extends Qui
               quiz.id,
               quiz.genreId,
               quiz.question,
-              quiz.options.map(option => QuizOptionDto(option.id, option.content))
+              quiz.options.map(option => QuizOptionDto(option.id, option.optionNumber, option.content))
             )
         )
     }

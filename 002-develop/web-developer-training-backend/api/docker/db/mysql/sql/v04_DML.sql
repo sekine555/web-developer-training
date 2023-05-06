@@ -9,20 +9,20 @@ INSERT INTO quiz (id, genre_id, question) VALUES(1, 1, 'ビルド時にレンダ
 INSERT INTO quiz (id, genre_id, question) VALUES(2, 1, 'グローバルstateに保存した値がページをリロードした際に消えてしまうのはどれでしょうか？');
 
 -- quiz_choice
-INSERT INTO quiz_choice (id, quiz_id, content, is_answer, explanation)
-  VALUES(1, 1, 'CSR', 0, null);
-INSERT INTO quiz_choice (id, quiz_id, content, is_answer, explanation)
-  VALUES(2, 1, 'SSR', 0, null);
-INSERT INTO quiz_choice (id, quiz_id, content, is_answer, explanation)
-  VALUES(3, 1, 'SG', 1, '解説文が入ります解説文が入ります解説文が入ります');
-INSERT INTO quiz_choice (id, quiz_id, content, is_answer, explanation)
-  VALUES(4, 1, 'ISR', 0, null);
+INSERT INTO quiz_choice (id, quiz_id, option_number, content, is_answer, explanation)
+  VALUES(1, 1, 1, 'CSR', 0, null);
+INSERT INTO quiz_choice (id, quiz_id, option_number, content, is_answer, explanation)
+  VALUES(2, 1, 2, 'SSR', 0, null);
+INSERT INTO quiz_choice (id, quiz_id, option_number, content, is_answer, explanation)
+  VALUES(3, 1, 3, 'SG', 1, '解説文が入ります解説文が入ります解説文が入ります');
+INSERT INTO quiz_choice (id, quiz_id, option_number, content, is_answer, explanation)
+  VALUES(4, 1, 4, 'ISR', 0, null);
 
-INSERT INTO quiz_choice (id, quiz_id, content, is_answer, explanation)
-  VALUES(5, 2, 'インメモリ', 1, '解説文が入ります解説文が入ります解説文が入ります');
-INSERT INTO quiz_choice (id, quiz_id, content, is_answer, explanation)
-  VALUES(6, 2, 'ローカルストレージ', 0, null);
-INSERT INTO quiz_choice (id, quiz_id, content, is_answer, explanation)
-  VALUES(7, 2, 'セッションストレージ', 0, null);
-INSERT INTO quiz_choice (id, quiz_id, content, is_answer, explanation)
-  VALUES(8, 2, 'Cookie', 0, null);
+INSERT INTO quiz_choice (id, quiz_id, option_number, content, is_answer, explanation)
+  VALUES(5, 2, 1, 'インメモリ', 1, '解説文が入ります解説文が入ります解説文が入ります');
+INSERT INTO quiz_choice (id, quiz_id, option_number, content, is_answer, explanation)
+  VALUES(6, 2, 2, 'ローカルストレージ', 0, null);
+INSERT INTO quiz_choice (id, quiz_id, option_number, content, is_answer, explanation)
+  VALUES(7, 2, 3, 'セッションストレージ', 0, null);
+INSERT INTO quiz_choice (id, quiz_id, option_number, content, is_answer, explanation)
+  VALUES(8, 2, 4, 'Cookie', 0, null);
