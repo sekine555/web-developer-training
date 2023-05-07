@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import Icon from "@/components/helper/Icon/Icon.vue";
 import { useGenreStore } from "@/stores/genreStore";
 
 const genreStore = useGenreStore();
@@ -14,7 +13,10 @@ const genreStore = useGenreStore();
       >
         <li v-for="(menu, index) in genreStore.genres" :key="index">
           <nuxt-link :to="`/quiz/${menu.id}`">
-            <Icon :name="menu.genreName" :path="getImagePath(menu.genreCode)" />
+            <HelperIcon
+              :name="menu.genreName"
+              :path="getImagePath(menu.genreCode)"
+            />
           </nuxt-link>
         </li>
       </ul>

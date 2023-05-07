@@ -1,8 +1,8 @@
 -- genre
 INSERT INTO genre (id, genre_code, genre_name) VALUES(1, 'GENRE_001', 'フロントエンド');
 INSERT INTO genre (id, genre_code, genre_name) VALUES(2, 'GENRE_002', 'バックエンド');
-INSERT INTO genre (id, genre_code, genre_name) VALUES(3, 'GENRE_003', 'インフラ');
-INSERT INTO genre (id, genre_code, genre_name) VALUES(4, 'GENRE_004', 'データベース');
+INSERT INTO genre (id, genre_code, genre_name) VALUES(3, 'GENRE_003', 'データベース');
+INSERT INTO genre (id, genre_code, genre_name) VALUES(4, 'GENRE_004', 'インフラ');
 
 -- quiz
 -- フロントエンド
