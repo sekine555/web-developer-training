@@ -2,7 +2,7 @@
 
 ```bash
 $ npm install
-$ cp .env.sample .env.env
+$ cp .env.sample .env
 ```
 
 ## Running the app
