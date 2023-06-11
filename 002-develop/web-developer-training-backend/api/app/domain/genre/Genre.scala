@@ -1,13 +1,14 @@
 package domain.genre
 
+import domain.error.exception.CreateGenreException
 import infrastructure.genre.GenreEntity
 
 case class Genre private (id: Long, genreCode: String, genreName: String) {
   if (id < 0) {
-    throw new CreateGenreException("Genre idは自然数である必要があります")
+    throw CreateGenreException("Genre idは自然数である必要があります")
   }
   if (genreName.length > 30) {
-    throw new CreateGenreException("Genre nameは30文字以内である必要があります")
+    throw CreateGenreException("Genre nameは30文字以内である必要があります")
   }
 }
 

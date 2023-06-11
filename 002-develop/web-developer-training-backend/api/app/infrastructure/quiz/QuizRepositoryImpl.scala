@@ -1,5 +1,6 @@
 package infrastructure.quiz
 
+import domain.error.exception.NotFoundResourceException
 import domain.quiz.{ Quiz, QuizAnswer, QuizExplanation, QuizRepository }
 import scalikejdbc._
 
@@ -54,7 +55,8 @@ class QuizRepositoryImpl extends QuizRepository {
 
     quizChoiceEntityOpt match {
       case Some(quizChoiceEntity) => QuizAnswer.build(quizChoiceEntity.isAnswer, quizChoiceEntity.explanation)
-      case None                   => throw new IllegalArgumentException("Quiz choice not found.")
+      case None =>
+        throw NotFoundResourceException(s"Quiz choice not found. >>> quizId: $quizId, quizChoiceId: $quizChoiceId")
     }
   }
 
@@ -74,7 +76,7 @@ class QuizRepositoryImpl extends QuizRepository {
 
     quizChoiceEntityOpt match {
       case Some(quizChoiceEntity) => QuizExplanation.build(quizChoiceEntity.id, quizChoiceEntity.explanation)
-      case None                   => throw new IllegalArgumentException("Quiz choice not found.")
+      case None                   => throw NotFoundResourceException(s"Quiz choice not found. >>> quizId: $quizId")
     }
   }
 }
