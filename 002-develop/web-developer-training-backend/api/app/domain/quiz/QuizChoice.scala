@@ -1,5 +1,6 @@
 package domain.quiz
 
+import domain.error.exception.CreateQuizException
 import infrastructure.quiz.QuizChoiceEntity
 
 case class QuizChoice private (
@@ -11,7 +12,7 @@ case class QuizChoice private (
     explanation: String
 ) {
   if (content.length > 1000) {
-    throw new CreateQuizException("Contentは1000文字以内である必要があります")
+    throw CreateQuizException("Contentは1000文字以内である必要があります")
   }
 }
 

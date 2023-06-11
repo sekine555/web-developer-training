@@ -3,7 +3,9 @@ package controller.quiz
 import application.genre.GenreService
 import application.quiz.QuizService
 import com.google.inject.{ Inject, Singleton }
+import controller.common.DefaultController
 import controller.genre.GenreResponse
+import domain.error.exception.{ NotFoundResourceException, RequestValidationException }
 import play.api.mvc._
 import play.api.libs.json._
 
@@ -12,7 +14,7 @@ class QuizController @Inject() (
     val cc: ControllerComponents,
     val quizService: QuizService,
     val genreService: GenreService
-) extends AbstractController(cc) {
+) extends DefaultController(cc) {
   def getQuizListByGenreId(genreId: Long) = Action {
     genreService.getGenreById(genreId) match {
       case Some(genreDto) =>
@@ -42,27 +44,21 @@ class QuizController @Inject() (
         )
         Ok(Json.toJson(quizResponse))
 
-      case None => NotFound(Json.obj("error" -> s"Genre with ID $genreId not found"))
+      case None => throw NotFoundResourceException(s"Genre with ID $genreId not found")
     }
   }
 
   def verifyAnswer = Action(parse.json) { request =>
-    request.body
-      .validate[QuizAnswerRequest]
-      .fold(
-        errors => BadRequest(Json.obj("message" -> JsError.toJson(errors))),
-        quizAnswerRequest => {
-          val quizAnswer = quizService.verifyAnswer(quizAnswerRequest.quizId, quizAnswerRequest.quizChoiceId)
-          Ok(
-            Json.toJson(
-              QuizAnswerResponse(
-                quizAnswer.isCorrect,
-                quizAnswer.explanation
-              )
-            )
-          )
-        }
+    val quizAnswerRequest = validateRequest[QuizAnswerRequest](request.body)
+    val quizAnswer = quizService.verifyAnswer(quizAnswerRequest.quizId, quizAnswerRequest.quizChoiceId)
+    Ok(
+      Json.toJson(
+        QuizAnswerResponse(
+          quizAnswer.isCorrect,
+          quizAnswer.explanation
+        )
       )
+    )
   }
 
   def getQuizAnswerByQuizId(quizId: Long) = Action {
